@@ -1,3 +1,4 @@
+
 {
   "name": "blockworld",
   "version": "1.0.0",
@@ -8,15 +9,15 @@
     "dist": "electron-builder --win nsis"
   },
   "devDependencies": {
-    "electron": "^latest",
-    "electron-builder": "^latest"
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.0"
   },
   "build": {
     "appId": "com.blockworld.game",
     "productName": "BlockWorld",
     "files": [
-      "index.html",
-      "main.cjs"
+      "**/*",
+      "!dist/**/*"
     ],
     "win": {
       "target": "nsis"
