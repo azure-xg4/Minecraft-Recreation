@@ -461,7 +461,32 @@ function render(now) {
         }
     }
     const b = biomeAt(player.x, player.z);
+     player.y += player.vy * dt;
+        if (playerCollides(player.x, player.y, player.z)) {
+            player.y -= player.vy * dt;
+            if (player.vy < 0)
+                player.ground = true;
+            player.vy = 0;
+        }
+        if (player.y < -5) {
+            player.x = spawn.x;
+            player.z = spawn.z;
+            player.y = heightMap[Math.floor(spawn.x) * D + Math.floor(spawn.z)] + 2;
+        }
+    }
+    const b = biomeAt(player.x, player.z);
     $('biomeLabel').textContent = b;
+    $('stats').innerHTML = `♥ ${mode === 'creative' ? '∞' : player.health}　◆ ${mode === 'creative' ? '∞' : player.food}　 <span id="modeLabel">${mode.toUpperCase()}</span>　${b}`;
+    const hit = raycast();
+    $('target').textContent = hit ? blockNames[world[idx(hit.x, hit.y, hit.z)]] + ' · ' + hit.x + ', ' + hit.y + ', ' + hit.z : '';
+    if (toastTimer > 0) {
+        toastTimer -= dt;
+        if (toastTimer <= 0)
+            toastEl.classList.remove('show');
+    }
+    if (debug)
+        $('debug').textContent = `BlockWorld prototype\nXYZ ${player.x.toFixed(2)} ${player.y.toFixed(2)} ${player.z.toFixed(2)}\nBiome ${b}\nMode ${mode}\nRedstone components ${rs.size}\nFPS ${(1 / dt).toFixed(0)}\nSeed ${seed}`;
+    requestAnimationFrame(render);
     $('stats').innerHTML = `♥ ${mode === 'creative' ? '∞' : player.health}　◆ ${mode === 'creative' ? '∞' : player.food}　 <span id="modeLabel">${mode.toUpperCase()}</span>　${b}`;
     const hit = raycast();
     $('target').textContent = hit ? blockNames[world[idx(hit.x, hit.y, hit.z)]] + ' · ' + hit.x + ', ' + hit.y + ', ' + hit.z : '';
