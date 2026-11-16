@@ -16,8 +16,11 @@
     "appId": "com.blockworld.game",
     "productName": "BlockWorld",
     "files": [
-      "**/*",
-      "!dist/**/*"
+      "main.cjs",
+      "index.html",
+      "app.js",
+      "style.css",
+      "package.json"
     ],
     "win": {
       "target": "nsis"
