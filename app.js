@@ -461,7 +461,7 @@ function render(now) {
         }
     }
     const b = biomeAt(player.x, player.z);
-    $('biomeLabel').textContent = b;
+    if ($('biomeLabel')) $('biomeLabel').textContent = b;
     $('stats').innerHTML = `♥ ${mode === 'creative' ? '∞' : player.health}　◆ ${mode === 'creative' ? '∞' : player.food}　 <span id="modeLabel">${mode.toUpperCase()}</span>　${b}`;
     const hit = raycast();
     $('target').textContent = hit ? blockNames[world[idx(hit.x, hit.y, hit.z)]] + ' · ' + hit.x + ', ' + hit.y + ', ' + hit.z : '';
